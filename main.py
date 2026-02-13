@@ -70,6 +70,8 @@ if st.button("Predict Delay Minutes"):
     try:
         prediction = reg_model.predict(features)
         st.write("Prediction raw:", prediction)
+        st.write("Prediction shape:", prediction.shape)
+
         minutes = float(prediction[0])
         st.info(f"Delay: {round(minutes,2)} minutes")
     except Exception as e:
