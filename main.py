@@ -27,7 +27,6 @@ def load_models():
     reg = joblib.load(reg_path)
 
     return clf, reg
-clf_model, reg_model = load_models()
 
 # -------------------------------
 # Header Section
