@@ -80,6 +80,33 @@ streamlit run app/main.py
 
 Deployed using : Streamlit Cloud
 
+⚠️ Engineering Challenges Faced
+1️⃣ Large Dataset Handling (7–8 Lakh Rows, 32 Columns)
+One of the major challenges during development was handling a high-volume dataset (~700,000–800,000 rows with 32 features).
+Due to hardware limitations (local machine memory constraints), direct in-memory processing using Pandas caused performance bottlenecks and instability.
+🔍 Problem
+High RAM consumption during preprocessing
+Slower DataFrame operations
+System lag and memory overflow issues
+Difficulty in model training using raw CSV files
+🛠️ Solution Implemented
+Instead of reducing the dataset size (which could compromise model integrity), I implemented a structured data pipeline:
+Split and structured raw data efficiently
+Transferred data into a SQL database
+Performed preprocessing and cleaning directly at the database level
+Built a pipeline that fetched processed data from SQL
+Trained the machine learning model directly using database-connected architecture
+💡 Why This Approach Matters
+Reduced memory load on local system
+Improved data handling efficiency
+Simulated production-level architecture
+Demonstrated database-integrated ML workflow
+Built a scalable pipeline instead of a notebook-only solution
+This challenge strengthened my understanding of:
+Data engineering fundamentals
+SQL integration with ML workflows
+Memory optimization strategies
+Designing scalable machine learning systems
 
 📈 Future Improvements
 
