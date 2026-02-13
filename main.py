@@ -1,4 +1,12 @@
+import os
 import streamlit as st
+
+model_path = os.path.join(BASE_DIR, "model.joblib")
+
+st.write("Model exists:", os.path.exists(model_path))
+st.write("Model size (bytes):", os.path.getsize(model_path) if os.path.exists(model_path) else "Not found")
+
+'''import streamlit as st
 import joblib
 import os
 import numpy as np
