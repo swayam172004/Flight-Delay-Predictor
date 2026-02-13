@@ -15,16 +15,14 @@ st.set_page_config(
 # =========================================================
 # Load Models (Production Safe)
 # =========================================================
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
 @st.cache_resource
 def load_models():
     try:
-        clf = joblib.load(os.path.join(BASE_DIR, "model.joblib"))
-        reg = joblib.load(os.path.join(BASE_DIR, "regression_model.joblib"))
+        clf = joblib.load("model.joblib")
+        reg = joblib.load("regression_model.joblib")
         return clf, reg
     except Exception as e:
-        st.error("❌ Model files not found or corrupted.")
+        st.error(f"Model loading failed: {e}")
         st.stop()
 
 clf_model, reg_model = load_models()
