@@ -63,7 +63,7 @@ Flight-Delay-Predictor/
 
 ⚙️ Installation (Run Locally)
 
-git clone https://github.com/your-username/Flight-Delay-Predictor.git
+git clone https://github.com/swayam172004/Flight-Delay-Predictor.git
 cd Flight-Delay-Predictor
 pip install -r requirements.txt
 streamlit run app/main.py
