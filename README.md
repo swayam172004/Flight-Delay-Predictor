@@ -37,13 +37,15 @@ Algorithm: XGBoost Regressor
 Output: Delay time in minutes
 
 🛠 Tech Stack
-Category	Technology
-Language	Python 3.10
-ML Models	XGBoost
-ML Framework	Scikit-Learn
-Web Framework	Streamlit
-Data Handling	Pandas, NumPy
-Model Storage	Joblib
+Category               	Technology
+
+Language	              Python 3.10
+ML Models	              XGBoost
+ML Framework	          Scikit-Learn
+Web Framework	          Streamlit
+Data Handling	          Pandas, NumPy
+Model Storage	          Joblib
+
 📂 Project Structure
 Flight-Delay-Predictor/
 │
@@ -60,6 +62,7 @@ Flight-Delay-Predictor/
 └── LICENSE
 
 ⚙️ Installation (Run Locally)
+
 git clone https://github.com/your-username/Flight-Delay-Predictor.git
 cd Flight-Delay-Predictor
 pip install -r requirements.txt
@@ -75,23 +78,18 @@ streamlit run app/main.py
 
 🔐 Deployment
 
-Deployed using:
+Deployed using : Streamlit Cloud
 
-Streamlit Cloud
-
-Hugging Face Spaces
-
-Docker-compatible setup
 
 📈 Future Improvements
 
-Add weather data integration
+*Add weather data integration
 
-Improve model accuracy
+*Improve model accuracy
 
-Add historical analytics dashboard
+*Add historical analytics dashboard
 
-CI/CD pipeline integration
+*CI/CD pipeline integration
 
 👨‍💻 Author
 
