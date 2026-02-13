@@ -67,6 +67,6 @@ if st.button("Predict Delay Minutes"):
 
     features = np.array([[arr_delay, dep_delay]])
 
-    minutes = reg_model.predict(features)[0]
+    minutes = float(reg_model.predict(features)[0])
 
-    st.info(f"🕒 Estimated Delay: {round(float(minutes), 2)} minutes")
+    st.info(f"🕒 Estimated Delay: {round(minutes, 2)} minutes")
