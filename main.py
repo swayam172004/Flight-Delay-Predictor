@@ -67,16 +67,9 @@ if st.button("Predict Delay Minutes"):
 
     features = np.array([[arr_delay, dep_delay]])
 
-    try:
-        prediction = reg_model.predict(features)
-        st.write("Prediction raw:", prediction)
-        st.write("Prediction shape:", prediction.shape)
+    import numpy as np
 
-        minutes = float(prediction[0])
-        st.info(f"Delay: {round(minutes,2)} minutes")
-    except Exception as e:
-        st.error(str(e))
-
-
+    prediction = reg_model.predict(features)
+    minutes = float(np.ravel(prediction)[0])
+    
     st.info(f"🕒 Estimated Delay: {round(minutes, 2)} minutes")
-
