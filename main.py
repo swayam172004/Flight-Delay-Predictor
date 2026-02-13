@@ -114,7 +114,7 @@ with tab2:
         features = np.array([[ARRIVAL_DELAY, DEPARTURE_DELAY]])
 
         try:
-            minutes = float(reg_model.predict(features)[0])
+            minutes = float(reg_model.predict(features).flatten()[0])
 
             st.success("Prediction Complete ✅")
             st.info(f"Estimated Delay: **{round(minutes, 2)} minutes**")
