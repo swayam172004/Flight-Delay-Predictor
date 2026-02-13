@@ -21,7 +21,7 @@ MODEL_DIR = os.path.join(BASE_DIR, "..", "models")
 
 @st.cache_resource
 def load_models():
-    clf = joblib.load(os.path.join(MODEL_DIR, "classification_model.joblib"))
+    clf = joblib.load(os.path.join(MODEL_DIR, "model.joblib"))
     reg = joblib.load(os.path.join(MODEL_DIR, "regression_model.joblib"))
     return clf, reg
 
