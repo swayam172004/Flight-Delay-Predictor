@@ -1,75 +1,106 @@
 import streamlit as st
-import joblib
-import os
+import pandas as pd
 import numpy as np
+import os
+import joblib
 
-# -----------------------------
+# -------------------------------
+# Page Configuration
+# -------------------------------
+st.set_page_config(
+    page_title="Flight Delay Predictor",
+    page_icon="✈️",
+    layout="wide"
+)
+
+# -------------------------------
 # Load Models
-# -----------------------------
+# -------------------------------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_DIR = os.path.join(BASE_DIR, "..", "models")
 
-clf_model = joblib.load(os.path.join(BASE_DIR, "model.joblib"))
-reg_model = joblib.load(os.path.join(BASE_DIR, "regression_model.joblib"))
+@st.cache_resource
+def load_models():
+    clf = joblib.load(os.path.join(MODEL_DIR, "classification_model.joblib"))
+    reg = joblib.load(os.path.join(MODEL_DIR, "regression_model.joblib"))
+    return clf, reg
 
-# -----------------------------
-# UI
-# -----------------------------
-st.title("✈️ Flight Delay Prediction")
+clf_model, reg_model = load_models()
 
-# =============================
-# Delay Classification
-# =============================
-st.header("Delay Status Prediction")
+# -------------------------------
+# Header Section
+# -------------------------------
+st.title("✈️ Flight Delay Predictor")
+st.markdown("Predict flight delay status and estimated delay time using Machine Learning.")
 
-MONTH = st.number_input("Month", 1, 12, 6)
-DAY = st.number_input("Day", 1, 31, 15)
-SCHEDULED_ARRIVAL = st.number_input("Scheduled Arrival", 0, 2359, 1400)
-ARRIVAL_TIME = st.number_input("Actual Arrival", 0, 2359, 1420)
-ARRIVAL_DELAY = st.number_input("Arrival Delay (min)", value=20.0)
-SCHEDULED_DEPARTURE = st.number_input("Scheduled Departure", 0, 2359, 1200)
-DEPARTURE_TIME = st.number_input("Actual Departure", 0, 2359, 1215)
-DEPARTURE_DELAY = st.number_input("Departure Delay (min)", value=15.0)
-DISTANCE = st.number_input("Distance (miles)", value=800.0)
-AIR_TIME = st.number_input("Air Time (min)", value=120.0)
+st.divider()
 
-if st.button("Predict Delay Status"):
+# -------------------------------
+# Input Section
+# -------------------------------
+st.subheader("📌 Enter Flight Details")
 
-    features = np.array([[
-        MONTH,
-        DAY,
-        SCHEDULED_ARRIVAL,
-        ARRIVAL_TIME,
-        ARRIVAL_DELAY,
-        SCHEDULED_DEPARTURE,
-        DEPARTURE_TIME,
-        DEPARTURE_DELAY,
-        DISTANCE,
-        AIR_TIME
-    ]])
+col1, col2, col3 = st.columns(3)
 
-    prediction = int(clf_model.predict(features)[0])
+with col1:
+    airline = st.selectbox("Airline", ["Airline A", "Airline B", "Airline C"])
+    source = st.selectbox("Source Airport", ["Delhi", "Mumbai", "Chennai"])
 
-    if prediction == 1:
-        st.error("✈️ Flight Delayed")
-    else:
-        st.success("✅ Flight On Time")
+with col2:
+    destination = st.selectbox("Destination Airport", ["Bangalore", "Kolkata", "Hyderabad"])
+    distance = st.number_input("Distance (km)", min_value=0)
 
+with col3:
+    departure_hour = st.slider("Departure Hour", 0, 23)
+    day_of_week = st.selectbox("Day of Week", ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"])
 
-# =============================
-# Delay Minutes Prediction
-# =============================
-st.header("Delay Minutes Prediction")
+st.divider()
 
-arr_delay = st.number_input("Arrival Delay", value=20.0, key="arr")
-dep_delay = st.number_input("Departure Delay", value=15.0, key="dep")
+# -------------------------------
+# Prediction Button
+# -------------------------------
+if st.button("🔍 Predict Delay"):
 
-if st.button("Predict Delay Minutes"):
+    with st.spinner("Analyzing flight data..."):
 
-    features = np.array([[arr_delay, dep_delay]])
+        # Prepare DataFrame (must match training features)
+        features = pd.DataFrame([{
+            "Airline": airline,
+            "Source": source,
+            "Destination": destination,
+            "Distance": distance,
+            "Departure_Hour": departure_hour,
+            "Day_of_Week": day_of_week
+        }])
 
-    import numpy as np
+        try:
+            # Classification
+            clf_prediction = clf_model.predict(features)
+            delay_status = int(np.ravel(clf_prediction)[0])
 
-    prediction = reg_model.predict(features)
-    minutes = float(np.ravel(prediction)[0])
-    
-    st.info(f"🕒 Estimated Delay: {round(minutes, 2)} minutes")
+            # Regression
+            reg_prediction = reg_model.predict(features)
+            delay_minutes = float(np.ravel(reg_prediction)[0])
+
+            st.success("Prediction Complete ✅")
+
+            col1, col2 = st.columns(2)
+
+            with col1:
+                if delay_status == 1:
+                    st.error("⚠️ Flight is likely to be Delayed")
+                else:
+                    st.success("✅ Flight is likely to be On-Time")
+
+            with col2:
+                st.info(f"🕒 Estimated Delay: {round(delay_minutes, 2)} minutes")
+
+        except Exception as e:
+            st.error(f"Prediction failed: {str(e)}")
+
+st.divider()
+
+# -------------------------------
+# Footer
+# -------------------------------
+st.caption("Built with ❤️ using XGBoost & Streamlit")
