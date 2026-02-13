@@ -17,14 +17,16 @@ st.set_page_config(
 # Load Models
 # -------------------------------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_DIR = os.path.join(BASE_DIR, "..", "models")
 
 @st.cache_resource
 def load_models():
-    clf = joblib.load(os.path.join(MODEL_DIR, "model.joblib"))
-    reg = joblib.load(os.path.join(MODEL_DIR, "regression_model.joblib"))
-    return clf, reg
+    clf_path = os.path.join(BASE_DIR, "model.joblib")
+    reg_path = os.path.join(BASE_DIR, "regression_model.joblib")
 
+    clf = joblib.load(clf_path)
+    reg = joblib.load(reg_path)
+
+    return clf, reg
 clf_model, reg_model = load_models()
 
 # -------------------------------
