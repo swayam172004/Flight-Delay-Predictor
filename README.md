@@ -1,40 +1,40 @@
 🚀 Flight Delay Predictor
 
-Machine Learning–powered web application that predicts:
+  Machine Learning–powered web application that predicts:
 
 ✈️ Flight Delay Status (Delayed / On-Time)
 
 🕒 Estimated Delay Duration (in minutes)
 
-Built using XGBoost, Scikit-Learn, and Streamlit for real-time predictions.
+  Built using XGBoost, Scikit-Learn, and Streamlit for real-time predictions.
 
 🌐 Live Demo
 
-👉[Click](https://flight-delay-predictor-tckelcwe8us5hkvdqjg4y7.streamlit.app/)
+  👉[Click](https://flight-delay-predictor-tckelcwe8us5hkvdqjg4y7.streamlit.app/)
 
 📌 Problem Statement
 
-Flight delays cause significant operational and financial challenges in aviation.
-This project uses machine learning to:
-
-Predict whether a flight will be delayed
-
-Estimate delay duration if delayed
-
-Provide real-time predictions via a clean web interface
+  Flight delays cause significant operational and financial challenges in aviation.
+  This project uses machine learning to:
+  
+  Predict whether a flight will be delayed
+  
+  Estimate delay duration if delayed
+  
+  Provide real-time predictions via a clean web interface
 
 🧠 Machine Learning Models
 1️⃣ Classification Model
 
-Algorithm: XGBoost Classifier
+  Algorithm: XGBoost Classifier
 
-Output: Delay (Yes / No)
+  Output: Delay (Yes / No)
 
 2️⃣ Regression Model
 
-Algorithm: XGBoost Regressor
-
-Output: Delay time in minutes
+  Algorithm: XGBoost Regressor
+  
+  Output: Delay time in minutes
 
 🛠 Tech Stack
 Category               	Technology
