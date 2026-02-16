@@ -126,4 +126,3 @@ with tab2:
 # Footer
 # =========================================================
 st.divider()
-st.caption("Built with ❤️ using Machine Learning & Streamlit")
